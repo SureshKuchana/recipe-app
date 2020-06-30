@@ -1,0 +1,26 @@
+# Docker compose config for project, Docker compose is tool that allows us to tun docker images easily
+# It allows to easily manage different services that make up our project
+# for eg 1 Python app 2) database
+
+# FOr line is Docker-compose specify the version
+version: "3"
+# we define our service that make up our services
+# we have a service called app, and the build section of the configuration,
+# we're going to set a context to dot is for current directory
+# Map TCP port 8000 in the container to port 8000 on the Docker host. i.e -p 8000(Docker Host):8000(tcp)
+# Voulmues allows us to get the updates that we make your project into our docker image in real-time
+# it maps the current directory to in Docker Image
+# command for run our app in our docker container
+# i'm going to break line into the next line >
+# run the cmd using shell run cmd sh -c
+# python3 manage.py runserver 0.0.0.0:8000 run django server avaliable on all IP address that run on Docker container  
+services:
+    app:
+        build:
+            context: .
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./app:/app
+        command: >
+            sh -c "python3 manage.py runserver 0.0.0.0:8000"
