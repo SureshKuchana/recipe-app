@@ -1,0 +1,12 @@
+#Travis CI is a hosted, distributed continuous integration service used to build and test projects hosted at GitHub.
+#Travis CI automatically detects when a commit has been made and pushed to a GitHub repository that is using Travis CI,
+#and each time this happens, it will try to build the project and run tests
+language: python
+python:
+    - "3.8"
+services:
+    - docker
+before_script: pip3 install docker-compose
+
+script:
+    - docker-compose run app sh -c "python3 manage.py test && flake8"
